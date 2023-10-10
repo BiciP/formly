@@ -7,23 +7,39 @@
     "build": "remix build",
     "dev": "remix dev --manual",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "extension:build": "bun build ./extension/index --outdir ./extension/build --target browser --minify",
+    "extension:dev": "bun build ./extension/index --outdir ./extension/build --target browser --minify --watch"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
+    "@phosphor-icons/react": "^2.0.13",
     "@remix-run/css-bundle": "^2.0.1",
     "@remix-run/node": "^2.0.1",
     "@remix-run/react": "^2.0.1",
     "@remix-run/serve": "^2.0.1",
+    "@types/alpinejs": "^3.13.2",
+    "alpinejs": "^3.13.0",
+    "bun": "^1.0.3",
+    "classnames": "^2.3.2",
+    "html-loader": "^4.2.0",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-contenteditable": "^3.3.7",
+    "react-dom": "^18.2.0",
+    "sanitize-html": "^2.11.0",
+    "svelte": "^4.2.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.0.1",
     "@remix-run/eslint-config": "^2.0.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/sanitize-html": "^2.9.2",
     "eslint": "^8.38.0",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6"
   },
   "engines": {
