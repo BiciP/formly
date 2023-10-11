@@ -101,7 +101,7 @@ export default function InputBlock({ data, onDataChange }: IProps) {
             <InputIcon />
           </span>
 
-          <div className={`absolute left-0 top-full translate-y-1 border border-slate-200 shadow-sm rounded flex gap-x-2 items-center z-10 bg-white text-sm ${interacting ? '' : 'hidden'}`}>
+          <div className={`absolute left-0 top-full shadow-lg translate-y-1 border border-slate-200 rounded flex gap-x-2 items-center z-10 bg-white text-sm ${interacting ? '' : 'hidden'}`}>
             <DropdownMenu.Root onOpenChange={(open) => setTypeDropdownOpen(open)}>
               <DropdownMenu.Trigger className="capitalize flex items-center gap-x-1 px-2 py-1 hover:bg-slate-100">
                 {item.inputType}
@@ -109,33 +109,28 @@ export default function InputBlock({ data, onDataChange }: IProps) {
               </DropdownMenu.Trigger>
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
-                  className="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                  className="min-w-[220px] z-20 bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
                   sideOffset={5}
+                  align="start"
                 >
-                  <DropdownMenu.Item
-                    onSelect={() => setItem({ ...item, inputType: 'text' })}
-                    className="text-[13px] leading-none text-purple-500 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-purple-400 data-[disabled]:pointer-events-none data-[highlighted]:bg-purple-200 data-[highlighted]:text-purple-900"
-                  >
-                    {item.inputType === 'text' && <Check className="absolute left-2" />}
-                    Text
-                    <TextT className="ml-auto" />
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item
-                    onSelect={() => setItem({ ...item, inputType: 'number' })}
-                    className="text-[13px] leading-none text-purple-500 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-purple-400 data-[disabled]:pointer-events-none data-[highlighted]:bg-purple-200 data-[highlighted]:text-purple-900"
-                  >
-                    {item.inputType === 'number' && <Check className="absolute left-2" />}
-                    Number
-                    <Hash className="ml-auto" />
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item
-                    onSelect={() => setItem({ ...item, inputType: 'password' })}
-                    className="text-[13px] leading-none text-purple-500 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-purple-400 data-[disabled]:pointer-events-none data-[highlighted]:bg-purple-200 data-[highlighted]:text-purple-900"
-                  >
-                    {item.inputType === 'password' && <Check className="absolute left-2" />}
-                    Password
-                    <Password className="ml-auto" />
-                  </DropdownMenu.Item>
+                  {
+                    Object.keys(inputTypeIcon).map((inputType: string) => {
+                      const Icon = inputTypeIcon[inputType as IInputBlock['inputType']]
+                      return (
+                        <DropdownMenu.Item
+                          onSelect={() => setItem({
+                            ...item,
+                            inputType: inputType as IInputBlock['inputType']
+                          })}
+                          className="text-sm leading-none text-gray-600 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-blue-200 data-[highlighted]:text-blue-900"
+                        >
+                          {item.inputType === inputType && <Check className="absolute left-2" />}
+                          <span className="capitalize">{inputType}</span>
+                          <Icon className="ml-auto" />
+                        </DropdownMenu.Item>
+                      )
+                    })
+                  }
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
             </DropdownMenu.Root>
@@ -157,7 +152,7 @@ export default function InputBlock({ data, onDataChange }: IProps) {
 }
 
 const inputTypeIcon = {
-  'number': Hash,
   'text': TextT,
+  'number': Hash,
   'password': Password
 }
