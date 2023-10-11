@@ -3,7 +3,8 @@ import InputBlock from "./InputBlock"
 
 interface Props {
   type: IInputBlock['type'],
-  data: UniBlock
+  data: UniBlock,
+  onDataChange?: (data: UniBlock) => void
 }
 
 export default function Block(props: Props) {

@@ -11,8 +11,12 @@ export default function Builder(props: any) {
   const handleAdd = (afterIndex: number) => {
     let index = afterIndex + 1
     let tmpItems = [...items]
-    tmpItems.splice(index, 0, { id: Math.floor(Math.random() * 100).toString(), type: "input", label: "Hello" })
+    tmpItems.splice(index, 0, { id: Math.floor(Math.random() * 100).toString(), type: "input" })
     setItems(tmpItems)
+  }
+
+  const handleUpdate = (id: any, newItem: UniBlock) => {
+    setItems([...items].map(item => item.id === id ? newItem : item))
   }
 
   const handleRemove = (id: any) => {
@@ -28,26 +32,21 @@ export default function Builder(props: any) {
           className="flex flex-col"
           renderItem={(item, index = -1) => {
             let last = index >= items.length - 1
+
+            const onDataChange = (data: UniBlock) => {
+              handleUpdate(data.id, data)
+            }
+
             return (
               <>
                 <SortableList.Item
                   id={item.id}
                   className="group/block-item relative p-4 border border-transparent hover:border-slate-200 hover:shadow-sm rounded flex justify-between items-center"
                 >
-                  {/* <div className="flex items-center">
-                    <span className="mr-2">
-                      {
-                        item.type === "input" ?
-                          <Textbox />
-                          : null
-                      }
-                    </span>
-                    {item.label}
-                  </div> */}
-
                   <Block
-                    type={item.type}
                     data={item}
+                    type={item.type}
+                    onDataChange={onDataChange}
                   />
 
                   <div className="absolute -left-[58px] flex items-center gap-x-1 py-3 pr-2">
