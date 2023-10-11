@@ -6,12 +6,12 @@ import Block from "~/components/Block";
 
 
 export default function Builder(props: any) {
-  const [items, setItems] = useState<UniBlock[]>([{ id: "1", type: "input", label: "Hello" }, { id: "2", type: "input", label: "Hello 2" }])
+  const [items, setItems] = useState<UniBlock[]>([{ id: "1", type: "input", inputType: 'text' }, { id: "2", type: "input", inputType: 'text' }])
 
   const handleAdd = (afterIndex: number) => {
     let index = afterIndex + 1
     let tmpItems = [...items]
-    tmpItems.splice(index, 0, { id: Math.floor(Math.random() * 100).toString(), type: "input" })
+    tmpItems.splice(index, 0, { id: Math.floor(Math.random() * 100).toString(), type: "input", inputType: 'text' })
     setItems(tmpItems)
   }
 
@@ -41,7 +41,7 @@ export default function Builder(props: any) {
               <>
                 <SortableList.Item
                   id={item.id}
-                  className="group/block-item relative p-4 border border-transparent hover:border-slate-200 hover:shadow-sm rounded flex justify-between items-center"
+                  className="group/block-item relative flex justify-between items-center"
                 >
                   <Block
                     data={item}

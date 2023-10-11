@@ -8,6 +8,7 @@ export interface IBlock {
 
 export interface IInputBlock extends IBlock {
   type: "input";
+  inputType: 'text' | 'number' | 'password';
   label?: string;
   placeholder?: string;
 }
